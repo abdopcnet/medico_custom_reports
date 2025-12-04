@@ -1,0 +1,43 @@
+{
+ "chart_name": "Sales Payment Summary: \u0637\u0631\u064a\u0642\u0629_\u0627\u0644\u062f\u0641\u0639 vs \u0627\u0644\u0645\u0628\u064a\u0639\u0627\u062a_\u0648\u0627\u0644\u0645\u0631\u062a\u062c\u0639\u0627\u062a",
+ "chart_type": "Report",
+ "creation": "2024-09-26 21:29:24.251554",
+ "custom_options": "{\"x_field\": \"\\u0637\\u0631\\u064a\\u0642\\u0629_\\u0627\\u0644\\u062f\\u0641\\u0639\", \"chart_type\": \"Donut\", \"y_axis_fields\": [{\"idx\": 1, \"__islocal\": true, \"y_field\": \"\\u0627\\u0644\\u0645\\u0628\\u064a\\u0639\\u0627\\u062a_\\u0648\\u0627\\u0644\\u0645\\u0631\\u062a\\u062c\\u0639\\u0627\\u062a\", \"color\": \"#449CF0\", \"name\": \"row 1\"}, {\"idx\": 2, \"__islocal\": true, \"y_field\": \"\\u0627\\u0644\\u0636\\u0631\\u0627\\u0626\\u0628\", \"color\": \"#CB2929\", \"name\": \"row 2\"}, {\"idx\": 3, \"__islocal\": true, \"y_field\": \"\\u0627\\u0644\\u0645\\u062f\\u0641\\u0648\\u0639\\u0627\\u062a\", \"color\": \"#29CD42\", \"name\": \"row 3\"}, {\"idx\": 4, \"__islocal\": true, \"name\": \"row 4\", \"__checked\": 1}], \"y_fields\": [\"\\u0627\\u0644\\u0645\\u0628\\u064a\\u0639\\u0627\\u062a_\\u0648\\u0627\\u0644\\u0645\\u0631\\u062a\\u062c\\u0639\\u0627\\u062a\", \"\\u0627\\u0644\\u0636\\u0631\\u0627\\u0626\\u0628\", \"\\u0627\\u0644\\u0645\\u062f\\u0641\\u0648\\u0639\\u0627\\u062a\"], \"colors\": [\"#449CF0\", \"#CB2929\", \"#29CD42\"]}",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "filters_json": "{\"from_date\":\"2025-12-04\",\"to_date\":\"2025-12-04\",\"company\":\"Medico Trade\",\"payment_detail\":1}",
+ "group_by_type": "Count",
+ "idx": 2,
+ "is_public": 0,
+ "is_standard": 1,
+ "modified": "2025-12-04 15:32:25.884842",
+ "modified_by": "Administrator",
+ "module": "Medico Custom Reports",
+ "name": "Sales Payment Summary: \u0637\u0631\u064a\u0642\u0629_\u0627\u0644\u062f\u0641\u0639 vs \u0627\u0644\u0645\u0628\u064a\u0639\u0627\u062a_\u0648\u0627\u0644\u0645\u0631\u062a\u062c\u0639\u0627\u062a",
+ "number_of_groups": 0,
+ "owner": "Administrator",
+ "report_name": "Sales Payment Summary",
+ "roles": [],
+ "show_values_over_chart": 0,
+ "time_interval": "Yearly",
+ "timeseries": 0,
+ "timespan": "Last Year",
+ "type": "Donut",
+ "use_report_chart": 0,
+ "x_field": "\u0637\u0631\u064a\u0642\u0629_\u0627\u0644\u062f\u0641\u0639",
+ "y_axis": [
+  {
+   "color": "#449CF0",
+   "y_field": "\u0627\u0644\u0645\u0628\u064a\u0639\u0627\u062a_\u0648\u0627\u0644\u0645\u0631\u062a\u062c\u0639\u0627\u062a"
+  },
+  {
+   "color": "#CB2929",
+   "y_field": "\u0627\u0644\u0636\u0631\u0627\u0626\u0628"
+  },
+  {
+   "color": "#29CD42",
+   "y_field": "\u0627\u0644\u0645\u062f\u0641\u0648\u0639\u0627\u062a"
+  },
+  {}
+ ]
+}
