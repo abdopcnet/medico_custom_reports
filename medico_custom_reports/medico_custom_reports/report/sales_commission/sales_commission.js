@@ -5,23 +5,35 @@ frappe.query_reports['sales_commission'] = {
 	filters: [
 		{
 			fieldname: 'from_date',
-			label: __('From Date'),
+			label: __('من تاريخ'),
 			fieldtype: 'Date',
 			default: frappe.datetime.month_start(),
-			mandatory: 1,
+			reqd: 1,
 		},
 		{
 			fieldname: 'to_date',
-			label: __('To Date'),
+			label: __('إلى تاريخ'),
 			fieldtype: 'Date',
-			default: frappe.datetime.get_today(),
-			mandatory: 1,
+			default: frappe.datetime.month_end(),
+			reqd: 1,
 		},
 		{
-			fieldname: 'customer_name',
-			label: __('Customer Name'),
+			fieldname: 'company',
+			label: __('الشركة'),
+			fieldtype: 'Link',
+			options: 'Company',
+		},
+		{
+			fieldname: 'customer',
+			label: __('العميل'),
 			fieldtype: 'Link',
 			options: 'Customer',
+		},
+		{
+			fieldname: 'sales_person',
+			label: __('مندوب المبيعات'),
+			fieldtype: 'Link',
+			options: 'Sales Person',
 		},
 	],
 };
