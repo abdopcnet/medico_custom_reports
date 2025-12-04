@@ -1,0 +1,35 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2024-11-05 19:50:22.514369",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 1,
+ "is_standard": "Yes",
+ "javascript": "",
+ "letter_head": null,
+ "modified": "2025-12-04 16:09:08.727717",
+ "modified_by": "Administrator",
+ "module": "Medico Custom Reports",
+ "name": "sales_commission",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "",
+ "ref_doctype": "Payment Entry",
+ "reference_report": "",
+ "report_name": "sales_commission",
+ "report_script": "import frappe\r\nfrom frappe import _\r\n\r\n# Define columns\r\ncolumns = [\r\n    {\r\n        \"fieldname\": \"reference_name\",\r\n        \"label\": _(\"Reference Name\"),\r\n        \"fieldtype\": \"Data\",\r\n        \"width\": 200\r\n    },\r\n    {\r\n        \"fieldname\": \"total_paid_amount\",\r\n        \"label\": _(\"Total Paid Amount\"),\r\n        \"fieldtype\": \"Currency\",\r\n        \"width\": 150\r\n    },\r\n    {\r\n        \"fieldname\": \"sales_persons\",\r\n        \"label\": _(\"Sales Persons\"),\r\n        \"fieldtype\": \"Data\",\r\n        \"width\": 200\r\n    },\r\n    {\r\n        \"fieldname\": \"commission_rates\",\r\n        \"label\": _(\"Commission Rates\"),\r\n        \"fieldtype\": \"Data\",\r\n        \"width\": 200\r\n    },\r\n    {\r\n        \"fieldname\": \"amount_applicable_for_commission\",\r\n        \"label\": _(\"Amount Applicable for Commission\"),\r\n        \"fieldtype\": \"Currency\",\r\n        \"width\": 200\r\n    },\r\n    {\r\n        \"fieldname\": \"total_commission_amount\",\r\n        \"label\": _(\"Total Commission Amount\"),\r\n        \"fieldtype\": \"Currency\",\r\n        \"width\": 200\r\n    },\r\n    {\r\n        \"fieldname\": \"base_total_taxes_and_charges\",\r\n        \"label\": _(\"Base Total Taxes and Charges\"),\r\n        \"fieldtype\": \"Currency\",\r\n        \"width\": 200\r\n    },\r\n    {\r\n        \"fieldname\": \"customer_name\",\r\n        \"label\": _(\"Customer Name\"),\r\n        \"fieldtype\": \"Link\",\r\n        \"options\": \"Customer\",\r\n        \"width\": 200\r\n    }\r\n]\r\n\r\n# Define filters\r\nfilters = [\r\n    {\r\n        \"fieldname\": \"from_date\",\r\n        \"label\": _(\"From Date\"),\r\n        \"fieldtype\": \"Date\",\r\n        \"default\": frappe.utils.nowdate(),\r\n        \"mandatory\": 1\r\n    },\r\n    {\r\n        \"fieldname\": \"to_date\",\r\n        \"label\": _(\"To Date\"),\r\n        \"fieldtype\": \"Date\",\r\n        \"default\": frappe.utils.nowdate(),\r\n        \"mandatory\": 1\r\n    },\r\n    {\r\n        \"fieldname\": \"customer_name\",\r\n        \"label\": _(\"Customer Name\"),\r\n        \"fieldtype\": \"Link\",\r\n        \"options\": \"Customer\"\r\n    }\r\n]\r\n\r\n# Fetch data\r\ndef execute(filters=None):\r\n    # Extract filters\r\n    from_date = filters.get(\"from_date\")\r\n    to_date = filters.get(\"to_date\")\r\n    customer_name = filters.get(\"customer_name\")\r\n    \r\n    # Build SQL query\r\n    query = \"\"\"\r\n        SELECT\r\n            `tabPayment Entry Reference`.reference_name AS reference_name,\r\n            SUM(`tabPayment Entry Reference`.total_paid_amount) AS total_paid_amount,\r\n            (SELECT GROUP_CONCAT(DISTINCT `tabSales Team`.sales_person SEPARATOR ', ')\r\n             FROM `tabSales Team`\r\n             WHERE `tabSales Team`.parent = `tabPayment Entry Reference`.reference_name) AS sales_persons,\r\n            (SELECT GROUP_CONCAT(DISTINCT `tabSales Team`.commission_rate SEPARATOR ', ')\r\n             FROM `tabSales Team`\r\n             WHERE `tabSales Team`.parent = `tabPayment Entry Reference`.reference_name) AS commission_rates,\r\n            SUM(`tabPayment Entry Reference`.total_paid_amount) - `tabSales Invoice`.base_total_taxes_and_charges AS amount_applicable_for_commission,\r\n            (SUM(`tabPayment Entry Reference`.total_paid_amount) - `tabSales Invoice`.base_total_taxes_and_charges) * (SELECT AVG(`tabSales Team`.commission_rate) / 100\r\n                                     FROM `tabSales Team`\r\n                                     WHERE `tabSales Team`.parent = `tabPayment Entry Reference`.reference_name) AS total_commission_amount,\r\n            `tabSales Invoice`.base_total_taxes_and_charges AS base_total_taxes_and_charges,\r\n            `tabSales Invoice`.customer_name AS customer_name\r\n        FROM\r\n            (SELECT\r\n                 `tabPayment Entry Reference`.reference_name,\r\n                 `tabPayment Entry Reference`.parent,\r\n                 SUM(DISTINCT `tabPayment Entry`.paid_amount) AS total_paid_amount\r\n             FROM\r\n                 `tabPayment Entry Reference`\r\n             INNER JOIN\r\n                 `tabPayment Entry` ON `tabPayment Entry`.name = `tabPayment Entry Reference`.parent\r\n             WHERE\r\n                 `tabPayment Entry Reference`.reference_doctype = 'Sales Invoice'\r\n             GROUP BY\r\n                 `tabPayment Entry Reference`.reference_name, `tabPayment Entry Reference`.parent) AS `tabPayment Entry Reference`\r\n        INNER JOIN\r\n            `tabSales Invoice` ON `tabSales Invoice`.name = `tabPayment Entry Reference`.reference_name\r\n        WHERE\r\n            `tabSales Invoice`.posting_date BETWEEN %(from_date)s AND %(to_date)s\r\n    \"\"\"\r\n\r\n    # Add customer name filter if provided\r\n    if customer_name:\r\n        query += \" AND `tabSales Invoice`.customer_name = %(customer_name)s\"\r\n        \r\n    query += \"\"\"\r\n        GROUP BY\r\n            `tabPayment Entry Reference`.reference_name,\r\n            `tabSales Invoice`.base_total_taxes_and_charges,\r\n            `tabSales Invoice`.customer_name\r\n    \"\"\"\r\n\r\n    # Set parameters\r\n    params = {\r\n        \"from_date\": from_date,\r\n        \"to_date\": to_date\r\n    }\r\n    if customer_name:\r\n        params[\"customer_name\"] = customer_name\r\n\r\n    # Execute the query\r\n    data = frappe.db.sql(query, params, as_dict=True)\r\n\r\n    return columns, data\r\n",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  }
+ ],
+ "timeout": 0
+}
