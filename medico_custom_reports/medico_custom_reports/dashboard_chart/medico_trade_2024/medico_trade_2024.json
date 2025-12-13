@@ -1,0 +1,33 @@
+{
+ "chart_name": "Medico Trade_2024",
+ "chart_type": "Report",
+ "creation": "2025-12-13 07:42:29.807881",
+ "currency": "EGP",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "filters_json": "{\"company\":\"Medico Trade\",\"filter_based_on\":\"Fiscal Year\",\"period_start_date\":\"2025-01-01\",\"period_end_date\":\"2025-12-31\",\"from_fiscal_year\":\"2024\",\"to_fiscal_year\":\"2024\",\"periodicity\":\"Monthly\",\"selected_view\":\"Report\",\"accumulated_values\":1,\"include_default_book_entries\":1,\"show_zero_values\":0}",
+ "from_date": "2024-01-01",
+ "group_by_type": "Count",
+ "idx": 0,
+ "is_public": 0,
+ "is_standard": 1,
+ "modified": "2025-12-13 08:02:20.080571",
+ "modified_by": "Administrator",
+ "module": "Medico Custom Reports",
+ "name": "Medico Trade_2024",
+ "number_of_groups": 0,
+ "owner": "Administrator",
+ "report_name": "Profit and Loss Statement",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "show_values_over_chart": 0,
+ "time_interval": "Yearly",
+ "timeseries": 0,
+ "to_date": "2024-12-31",
+ "type": "Bar",
+ "use_report_chart": 1,
+ "y_axis": []
+}
