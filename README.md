@@ -1,6 +1,6 @@
 ### Medico Custom Reports
 
-![Version](https://img.shields.io/badge/version-16.12.2025-blue)
+![Version](https://img.shields.io/badge/version-18.12.2025-blue)
 
 
 Medico Custom Reports
