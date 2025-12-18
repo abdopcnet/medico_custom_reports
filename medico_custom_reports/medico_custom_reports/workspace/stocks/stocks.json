@@ -27,7 +27,7 @@
  "icon": "retail",
  "idx": 0,
  "indicator_color": "",
- "is_hidden": 0,
+ "is_hidden": 1,
  "label": "Stocks",
  "links": [
   {
@@ -1172,7 +1172,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-12-16 23:04:09.930801",
+ "modified": "2025-12-17 07:29:48.785507",
  "modified_by": "Administrator",
  "module": "Medico Custom Reports",
  "name": "Stocks",
